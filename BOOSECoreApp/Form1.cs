@@ -1,3 +1,6 @@
+using BOOSE;
+using System.Diagnostics;
+
 namespace BOOSECoreApp
 {
     public partial class Form1 : Form
@@ -5,6 +8,7 @@ namespace BOOSECoreApp
         public Form1()
         {
             InitializeComponent();
+            Debug.WriteLine(AboutBOOSE.about());
         }
     }
 }
