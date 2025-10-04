@@ -11,10 +11,68 @@ using System.Threading.Tasks;
 
 namespace BOOSECoreApp
 {
+    /// <summary>
+    /// Provides a high-level interface for executing BOOSE drawing programs.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="BOOSEWrapper"/> class serves as a bridge between the BOOSE command language
+    /// and the underlying graphics system. It exposes static methods for parsing and executing BOOSE
+    /// instructions on a <see cref="BitmapCanvas"/>, returning a rendered <see cref="Bitmap"/> image
+    /// that visually represents the program output.
+    /// 
+    /// This wrapper encapsulates setup, parsing, execution, and error handling, allowing client code
+    /// (such as a Windows Forms interface) to run BOOSE programs without managing parser, factory, or
+    /// canvas initialization directly.
+    /// </remarks>
     public class BOOSEWrapper
     {
+        /// <summary>
+        /// A static method that interprets and executes BOOSE-commands as a drawing program on a bitmap canvas
+        /// Returns the resulting bitmap image.
+        /// </summary>
+        /// <param name="code">The BOOSE program to parse and execute</param>
+        /// <param name="width">The width of the output bitmap in pixels</param>
+        /// <param name="height">The height of the output bitmap in pixels</param>
+        /// <returns>
+        /// A <see cref="Bitmap"/> object representing the final rendered state of the canvas
+        /// after executing all BOOSE commands.
+        /// </returns>
+        /// <remarks>
+        /// It safely handles <see cref="ParserException"/>, <see cref="BOOSEException"/>, and generic
+        /// <see cref="Exception"/> types to prevent runtime failures, logging diagnostic information
+        /// for debugging purposes.
+        /// </remarks>
+        public static Bitmap RunProgram(string code, int width, int height)
+        {
+            var bitmap = new Bitmap(width, height);
+            var canvas = new BitmapCanvas(bitmap);
 
+            try
+            {
+                var storedProgram = new StoredProgram(canvas);
+                var factory = new CommandFactory();
+                var parser = new Parser(factory, storedProgram);
+
+                var program = parser.ParseCommand(code);
+                program.Execute();
+            }
+            catch (ParserException ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"PARSE Error: {ex.Message}");
+            }
+            catch (BOOSEException ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"BOOSE Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UNEXPECTED Error: {ex.Message}");
+            }
+
+            return bitmap;
+        }
     }
+
 
     /// <summary>
     /// Implementation class of BOOSE's ICanvas interface, providing a bitmap object as a drawing surface.
