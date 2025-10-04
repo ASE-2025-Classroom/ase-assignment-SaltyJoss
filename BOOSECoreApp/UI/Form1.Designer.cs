@@ -29,32 +29,34 @@
         private void InitializeComponent()
         {
             printDialog1 = new PrintDialog();
-            textBox1 = new TextBox();
-            pictureBox1 = new PictureBox();
+            txtProgram = new TextBox();
+            outputCanvas = new PictureBox();
             runButton = new Button();
             clearButton = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)outputCanvas).BeginInit();
             SuspendLayout();
             // 
             // printDialog1
             // 
             printDialog1.UseEXDialog = true;
             // 
-            // textBox1
+            // txtProgram
             // 
-            textBox1.Location = new Point(12, 12);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(426, 622);
-            textBox1.TabIndex = 0;
+            txtProgram.Location = new Point(12, 12);
+            txtProgram.Multiline = true;
+            txtProgram.Name = "txtProgram";
+            txtProgram.Size = new Size(426, 622);
+            txtProgram.TabIndex = 0;
+            txtProgram.TextChanged += txtProgram_TextChanged;
             // 
-            // pictureBox1
+            // outputCanvas
             // 
-            pictureBox1.Location = new Point(453, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1199, 657);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            outputCanvas.Location = new Point(453, 12);
+            outputCanvas.Name = "outputCanvas";
+            outputCanvas.Size = new Size(1199, 657);
+            outputCanvas.TabIndex = 1;
+            outputCanvas.TabStop = false;
+            outputCanvas.Click += outputCanvas_Click;
             // 
             // runButton
             // 
@@ -65,6 +67,7 @@
             runButton.TabIndex = 2;
             runButton.Text = "Run";
             runButton.UseVisualStyleBackColor = true;
+            runButton.Click += runButton_Click;
             // 
             // clearButton
             // 
@@ -75,6 +78,7 @@
             clearButton.TabIndex = 3;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
             // 
             // Form1
             // 
@@ -84,12 +88,12 @@
             ClientSize = new Size(1664, 681);
             Controls.Add(clearButton);
             Controls.Add(runButton);
-            Controls.Add(pictureBox1);
-            Controls.Add(textBox1);
+            Controls.Add(outputCanvas);
+            Controls.Add(txtProgram);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)outputCanvas).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -97,8 +101,8 @@
         #endregion
 
         private PrintDialog printDialog1;
-        private TextBox textBox1;
-        private PictureBox pictureBox1;
+        private TextBox txtProgram;
+        private PictureBox outputCanvas;
         private Button runButton;
         private Button clearButton;
     }
