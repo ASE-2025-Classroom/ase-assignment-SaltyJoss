@@ -4,7 +4,7 @@ namespace BOOSECoreApp.Core.Base
 {
     /// <summary>
     /// A base class serving as the foundation for all drawing operations using the BOOSE framework.
-    /// Implements <see cref="ICanvas"/> interface, providing a bitmap object as a drawing surface.
+    /// Implements <see cref="ICanvas"/> interface, can be inherited to creat a bitmap or canvas.
     /// </summary> 
     public abstract class CanvasBase : ICanvas
     {
